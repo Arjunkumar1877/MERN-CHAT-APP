@@ -37,7 +37,8 @@ export const signup = async(req,res)=>{
  
      res.status(200).json(resData);
  }else{
-    res.status(400).json({error: "Invalid user data"});
+    console.log("Error in signup contoller")
+    res.status(400).json({error: "Invalid server error"});
  }
 
    } catch (error) {
@@ -47,10 +48,33 @@ export const signup = async(req,res)=>{
 
 
 export const login = async(req,res)=>{
-    console.log("login route")
+    const { username, password} = req.body;
+   try {
+    const user = await User.findOne({username: username});
+    const isPasswordCorrect = await bcryptjs.compare(password, user?.password || "");
+
+    if(!user || !isPasswordCorrect){
+        return res.status(400).json({error: "Invalid user"});
+    }
+
+    generateTokenAndSetCookie(user._id, res);
+    const {password: pass, ...restData} = user._doc;
+    res.status(200).json(restData);
+   
+   } catch (error) {
+    console.log("Error in login contoller")
+    res.status(400).json({error: "Invalid server error"});
+   }
 }
 
 
 export const logout = async(req, res)=>{
-    console.log("logout route")
+   try {
+    res.cookie("jwt", "", {maxAge: 0});
+    res.status(200).json({message: "Logged out successfully"});
+     console.log("logout route");
+   } catch (error) {
+    console.log("Error in logout contoller")
+    res.status(400).json({error: "Invalid server error"});
+   }
 }

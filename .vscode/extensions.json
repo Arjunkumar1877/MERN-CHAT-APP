@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "mikestead.dotenv"
+        "mikestead.dotenv",
+        "bradlc.vscode-tailwindcss"
     ]
 }

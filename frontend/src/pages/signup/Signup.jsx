@@ -62,7 +62,9 @@ import useSignup from '../../hooks/useSignup'
   </Link>
 
   <div className="">
-  <button className='btn glass btn-block btn-sm mt-2 text-white'>Sign Up</button>
+  <button className='btn glass btn-block btn-sm mt-2 text-white border-slate-300' disabled={loading}>
+      { loading ? <span className='loading loading-spinner'></span> : "Sign Up" }
+    </button>
   </div>
 </form>
         </div>

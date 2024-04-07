@@ -10,7 +10,7 @@ const MessageContainer = () => {
     return ()=>{
       setSelectedConversation(null)
     }
-  }, [selectedConversation])
+  }, [setSelectedConversation])
   return (
     <div className='md:min-w-[450px] flex flex-col'>
     

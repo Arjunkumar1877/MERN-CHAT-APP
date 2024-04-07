@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSocketContext } from '../context/SocketContext';
 import useConversation from '../storeZustand/useConversation';
+import notificationSound from '../assets/frontend_src_assets_sounds_notification.mp3'
 
 const useListenMessages = () => {
  const { socket } = useSocketContext();
@@ -9,6 +10,8 @@ const useListenMessages = () => {
  useEffect(()=>{
 socket?.on("newMessage", (newMessage)=>{
     newMessage.shouldShake = true
+    const sound = new Audio(notificationSound);
+    sound.play()
     setMessages([...messages, newMessage])
 });
 
